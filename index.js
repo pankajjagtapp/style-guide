@@ -26,26 +26,26 @@ ast.children[4].subNodes.forEach((node) => {
   // console.log("++++++node====", node);
 
   if (node.type === "FunctionDefinition") {
-    console.log("IN FUNCTIONS GUYS!!!!!");
+    // console.log("IN FUNCTIONS GUYS!!!!!");
     let category = node.visibility;
-    console.log("category: ", category);
+    // console.log("category: ", category);
 
     if (node.isConstructor == true) {
-      console.log("Hey its constructor");
-      node.visibility = "constructor";
-      console.log("category changed to constructor", node.visibility);
+    //   console.log("Hey its constructor");
+      category = "constructor";
+    //   console.log("category changed to constructor", category);
     } else if (node.isReceiveEther == true) {
-      node.visibility = "receive";
-      console.log("Hey its receive function", node.visibility);
+      category = "receive";
+    //   console.log("Hey its receive function", category);
     } else if (node.isFallback == true) {
-      node.visibility = "fallback";
-      console.log("Hey its isFallback function", node.visibility);
+      category = "fallback";
+    //   console.log("Hey its isFallback function", category);
     }
 
     // console.log("-----------------------------------node", node);
     // console.log("category: ",category);
 
-    sortedFunctions[node.visibility].push(node);
+    sortedFunctions[category].push(node);
   }
 });
 
@@ -60,15 +60,15 @@ const sortedFunctionNodes = [
   ...sortedFunctions.private,
 ];
 
-console.log(
-  "++++++++++++++++++++++++++++++++++++++++++++++++sortedFunctionNodes:",
-  sortedFunctionNodes
-);
+// console.log(
+//   "++++++++++++++++++++++++++++++++++++++++++++++++sortedFunctionNodes:",
+//   sortedFunctionNodes
+// );
 
 // // Create the new contract file with sorted functions
-// const sortedContractCode = sortedFunctionNodes
-//   .map((node) => parser.prettyPrint(node))
-//   .join("\n\n");
-// fs.writeFileSync(outputFile, sortedContractCode);
+const sortedContractCode = sortedFunctionNodes
+  .map((node) => parser.prettyPrint(node))
+  .join("\n\n");
+fs.writeFileSync(outputFile, sortedContractCode);
 
 console.log(`Sorted functions have been written to ${outputFile}`);

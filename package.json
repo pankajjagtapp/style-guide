@@ -1,13 +1,18 @@
 {
-  "name": "hardhat-project",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "hardhat": "^2.17.1"
+  "name": "style-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.3",
+    "@solidity-parser/parser": "^0.16.1",
     "erc721a": "^4.2.3",
-    "fs": "^0.0.1-security",
-    "solidity-parser-antlr": "^0.4.11"
+    "fs": "^0.0.1-security"
   }
 }

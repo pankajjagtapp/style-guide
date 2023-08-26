@@ -53,6 +53,15 @@ contract DemoContract is ERC721A, Ownable {
         return 10000;
     }
 
+    function publicPure() public pure returns (uint256) {
+        return 800;
+    }
+
+    function internalFunction(bool _bool) internal {
+        presaleActive = _bool;
+        // return 6 + 8;
+    }
+
     modifier onlyPresale(bytes32[] memory proof) {
         if (!presaleActive) revert SaleNotActive();
         if (!_verifyMerkleProof(proof, _presaleMerkleRoot, msg.sender))
@@ -71,6 +80,10 @@ contract DemoContract is ERC721A, Ownable {
         _presaleMerkleRoot = root;
     }
 
+    function publicView() public view returns (bool) {
+        return presaleActive;
+    }
+
     function _basicChecks(uint256 quantity) internal view {
         if (quantity <= 0) {
             revert ZeroQuantity();
@@ -81,6 +94,10 @@ contract DemoContract is ERC721A, Ownable {
         if (msg.value < PRICE * quantity) {
             revert InsufficientAmount();
         }
+    }
+
+    function privateView() private view returns (bool) {
+        return presaleActive;
     }
 
     function _verifyMerkleProof(
@@ -112,7 +129,15 @@ contract DemoContract is ERC721A, Ownable {
         return baseURI;
     }
 
-    function changeRevealed(bool _revealed) external onlyOwner payable {
+    function externalView() external view returns (bool) {
+        return presaleActive;
+    }
+
+    function internalPure() internal pure returns (uint256) {
+        return 800;
+    }
+
+    function changeRevealed(bool _revealed) external payable onlyOwner {
         NFTsRevealed = _revealed;
     }
 
@@ -135,6 +160,10 @@ contract DemoContract is ERC721A, Ownable {
         } else {
             return string(abi.encodePacked(baseURI_, "hidden.json"));
         }
+    }
+
+    function externalPure() external pure returns (uint256) {
+        return 800;
     }
 
     receive() external payable {}
